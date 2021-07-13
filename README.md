@@ -147,3 +147,10 @@ yarn add  eslint-config-prettier eslint-plugin-prettier prettier lint-staged hus
     ]
   }
 ```
+
+```
+  "scripts": {
+    "precommit": "lint-staged",
+    "eslint": "node_modules/.bin/eslint src/"
+    }
+```

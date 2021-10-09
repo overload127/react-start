@@ -48,34 +48,48 @@ yarn add  eslint-config-prettier eslint-plugin-prettier prettier lint-staged hus
 
 ```
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "extends": [
-    "plugin:react/recommended",
-    "airbnb",
-    "prettier"
-  ],
-  "parserOptions": {
-    "ecmaFeatures": {
-        "jsx": true
+    "env": {
+        "browser": true,
+        "es2021": true
     },
-    "ecmaVersion": 12,
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react",
-    "prettier"
-  ],
-  "rules": {
-    "no-console": "off",
-    "jsx-quotes": [
-      1,
-      "prefer-double"
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "prettier"
     ],
-    "semi": ["error", "always"]
-  }
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "parser": "babel-eslint",
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "rules": {
+        "no-console": "off",
+        "no-debugger": "off",
+        "jsx-quotes": [
+            1,
+            "prefer-double"
+        ],
+        "semi": ["error", "always"],
+        // "react/jsx-props-no-spreading": [{
+        //     "exceptions": ["DropdownIndicator"]
+        // }]
+
+        "react/jsx-props-no-spreading": ["error", {
+            "html": "ignore",
+            "custom": "ignore",
+            "exceptions": [""]
+        }]
+    }
+    // "react/jsx-props-no-spreading": [{
+    //     "exceptions": ["DropdownIndicator"]
+    // }]
 }
 ```
 
@@ -106,6 +120,7 @@ yarn add  eslint-config-prettier eslint-plugin-prettier prettier lint-staged hus
     "editor.formatOnSave": true,
     "[javascript]": {
         "editor.formatOnSave": true,
+        "editor.tabSize": 2
     },
     "[html]": {
         "editor.formatOnSave": false,
@@ -113,7 +128,13 @@ yarn add  eslint-config-prettier eslint-plugin-prettier prettier lint-staged hus
     "[json]": {
         "editor.formatOnSave": false,
     },
-    "eslint.alwaysShowStatus": true,
+    "[jsx]": {
+        "editor.tabSize": 2
+    },
+    "[react]": {
+        "editor.tabSize": 2
+    },
+    "eslint.alwaysShowStatus": true
 }
 ```
 

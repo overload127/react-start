@@ -237,7 +237,7 @@ yarn add stylelint stylelint-config-recommended stylelint-config-styled-componen
 {
     "compilerOptions": {
         "baseUrl": "src",
-        "jsx": "react",
+        "jsx": "react"
     },
     "include": [
         "src"

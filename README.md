@@ -122,10 +122,33 @@ yarn add babel-loader babel-polyfill babel-preset-stage-2 --dev
     "printWidth": 200,
     "tabWidth": 2,
     "singleQuote": true,
-    "trailingComma": "es5",
+    "trailingComma": "all",
     "jsxBracketSameLine": false,
-    "parser": "flow",
-    "semi": true
+    "parser": "babel",
+    "semi": true,
+    "bracketSpacing": true,
+    "overrides": [
+        {
+          "files": ["*.ts", "*.tsx"],
+          "options": { "parser": "typescript" }
+        },
+        {
+          "files": "*.md",
+          "options": { "parser": "markdown" }
+        },
+        {
+          "files": "*.yml",
+          "options": { "parser": "yaml" }
+        },
+        {
+          "files": "*.json",
+          "options": { "parser": "json", "printWidth": 80 }
+        },
+        {
+          "files": "*.css",
+          "options": { "parser": "css" }
+        }
+      ]
 }
 ```
 
@@ -213,7 +236,8 @@ yarn add stylelint stylelint-config-recommended stylelint-config-styled-componen
 ```
 {
     "compilerOptions": {
-        "baseUrl": "src"
+        "baseUrl": "src",
+        "jsx": "react",
     },
     "include": [
         "src"

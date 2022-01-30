@@ -41,7 +41,7 @@ yarn upgrade eslint --latest
 ```
 yarn add eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y --dev
 yarn add  eslint-plugin-optimize-regex eslint-plugin-sonarjs eslint-plugin-no-use-extend-native eslint-plugin-promise eslint-plugin-standard --dev
-yarn add  eslint-config-prettier eslint-plugin-prettier prettier lint-staged husky --dev
+yarn add  eslint-config-prettier eslint-plugin-prettier prettier lint-staged husky babel-eslint js-beautify --dev
 ```
 
 ## Добавить несколько правил для eslint в файл .eslintrc.json

@@ -39,20 +39,13 @@ yarn upgrade eslint --latest
 ## Установка правил для eslint
 
 ```
-yarn add eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y --dev
-yarn add eslint-plugin-optimize-regex eslint-plugin-sonarjs eslint-plugin-no-use-extend-native eslint-plugin-promise eslint-plugin-standard --dev
-yarn add eslint-config-prettier eslint-config-with-prettier eslint-plugin-compat eslint-plugin-react-hooks eslint-plugin-prettier prettier lint-staged husky babel-eslint --dev
+yarn eslint eslint-config-airbnb eslint-config-prettier eslint-plugin-compat eslint-plugin-import eslint-plugin-json eslint-plugin-jsonc eslint-plugin-jsx-a11y eslint-plugin-no-use-extend-native eslint-plugin-optimize-regex eslint-plugin-promise eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-sonarjs eslint-plugin-standard prettier --dev
 ```
 
 ## Установка babel-плагинов для поддержки эксперементального кода
 
 ```
-yarn add eslint --dev
-yarn add @babel/cli @babel/core @babel/preset-react @babel/eslint-parser @babel/plugin-syntax-jsx @babel/preset-env --dev
-yarn add  babel-cli babel-eslint babel-preset-react  babel-eslint-parser  babel-plugin-syntax-jsx  babel-preset-env --dev
-
-yarn add @babel/plugin-proposal-class-properties @babel/eslint-plugin --dev
-yarn add babel-loader babel-polyfill babel-preset-stage-2 --dev
+yarn add @babel/cli @babel/core @babel/eslint-parser @babel/eslint-plugin @babel/node @babel/preset-env @babel/preset-react --dev
 ```
 
 
@@ -60,96 +53,75 @@ yarn add babel-loader babel-polyfill babel-preset-stage-2 --dev
 
 ```
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:import/warnings",
+    "plugin:compat/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime",
+    "prettier",
+    "plugin:json/recommended",
+    "plugin:jsonc/recommended-with-jsonc"
+  ],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "airbnb/hooks",
-        "prettier",
-        "plugin:react/jsx-runtime",
-        "plugin:testing-library/react",
-        "plugin:jest/all"
-    ],
-    "parserOptions": {
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "requireConfigFile": false
-    },
-    "parser": "@babel/eslint-parser",
-    "plugins": [
-        "jsx-a11y",
-        "react",
-        "react-hooks",
-        "@babel/",
-        "import",
-        "prettier"
-    ],
-    "rules": {
-        "no-console": "off",
-        "no-debugger": "off",
-        "jsx-quotes": [
-            1,
-            "prefer-double"
-        ],
-        "semi": ["error", "always"],
-        // "react/jsx-props-no-spreading": [{
-        //     "exceptions": ["DropdownIndicator"]
-        // }]
-
-        "react/jsx-props-no-spreading": ["error", {
-            "html": "ignore",
-            "custom": "ignore",
-            "exceptions": [""]
-        }]
-    }
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "requireConfigFile": false
+  },
+  "plugins": ["react", "import", "@babel", "react-hooks", "eslint-plugin-json"],
+  "rules": {
+    // "no-console": "off",
+    "no-debugger": "off",
+    "jsx-quotes": [1, "prefer-double"],
+    "semi": ["error", "always"],
     // "react/jsx-props-no-spreading": [{
     //     "exceptions": ["DropdownIndicator"]
     // }]
+    "react/jsx-props-no-spreading": [
+      "error",
+      {
+        "html": "ignore",
+        "custom": "ignore",
+        "exceptions": [""]
+      }
+    ]
+  }
+  // "react/jsx-props-no-spreading": [{
+  //     "exceptions": ["DropdownIndicator"]
+  // }]
 }
 ```
 
-## Добавить для плагина Prettier настройки в файл .prettierrc
+## Добавить для плагина Prettier настройки в файл .prettierrc.json
 
 ```
 {
-    "useTabs": false,
-    "printWidth": 200,
-    "tabWidth": 2,
-    "singleQuote": true,
     "trailingComma": "all",
-    "jsxBracketSameLine": false,
-    "parser": "babel",
+    "tabWidth": 2,
     "semi": true,
-    "bracketSpacing": true,
+    "singleQuote": true,
+    "arrowParens": "always",
     "overrides": [
         {
-          "files": ["*.ts", "*.tsx"],
-          "options": { "parser": "typescript" }
-        },
-        {
-          "files": "*.md",
-          "options": { "parser": "markdown" }
-        },
-        {
-          "files": "*.yml",
-          "options": { "parser": "yaml" }
-        },
-        {
-          "files": "*.json",
-          "options": { "parser": "json", "printWidth": 80 }
-        },
-        {
-          "files": "*.css",
-          "options": { "parser": "css" }
+            "files": "*.json",
+            "options": {
+                "tabWidth": 4,
+                "parser": "json"
+            }
         }
-      ]
+    ]
 }
+
 ```
 
 ## Добавить для vscode настройки в файл settings.json
@@ -190,62 +162,107 @@ yarn add babel-loader babel-polyfill babel-preset-stage-2 --dev
 
 ```
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "command": "yarn start",
-            "name": "Run yarn start",
-            "request": "launch",
-            "type": "node-terminal"
-        },
-    ]
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "eslint.validate": ["javascript", "js", "html", "json", "jsons", "jsx", "react"],
+    "eslint.alwaysShowStatus": true,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "files.associations": {
+        "*.json": "jsonc"
+    },
+    "[javascript]": {
+        "editor.tabSize": 2,
+    },
+    "[js]": {
+        "editor.tabSize": 2,
+    },
+    "[html]": {
+        "editor.tabSize": 2,
+    },
+    "[json]": {
+        "editor.tabSize": 4,
+    },
+    "[jsons]": {
+        "editor.tabSize": 4,
+    },
+    "[jsx]": {
+        "editor.tabSize": 2,
+    },
+    "[react]": {
+        "editor.tabSize": 2
+    },
+    "prettier.configPath": ".prettierrc.json"
 }
+
 ```
 
 
 ## add in file package.json
 
 ```
-"lint-staged": {
-    "*.{js, jsx}": [
-      "prettier --write",
-      "git add"
-    ]
-  }
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "precommit": "lint-staged",
+        "stylelint-check": "stylelint-config-prettier-check"
+    },
+    "eslintConfig": {
+        "extends": ["react-app", "react-app/jest"]
+    },
+    "browserslist": {
+        "production": [">0.2%", "not dead", "not op_mini all"],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "lint-staged": {
+        "*.{js, jsx, json}": ["prettier --write", "git add"]
+    },
 ```
 
 ```
-  "scripts": {
-    "precommit": "lint-staged",
-    "eslint": "node_modules/.bin/eslint src/"
+  "babel": {
+        "presets": [
+            [
+                "@babel/preset-react",
+                {
+                    "pragma": "dom",
+                    "pragmaFrag": "DomFrag",
+                    "throwIfNamespace": false,
+                    "runtime": "automatic"
+                }
+            ],
+            [
+                "@babel/preset-env",
+                {
+                    "targets": {
+                        "node": "current"
+                    }
+                }
+            ]
+        ]
     }
 ```
+
+## Установка пакетов форматирования css sass
+
+```
+yarn stylelint stylelint-config-prettier stylelint-config-recommended stylelint-config-recommended-scss stylelint-config-standard stylelint-config-standard-scss stylelint-config-styled-components stylelint-processor-styled-components --dev
+```
+
 
 ## Установка дополнительных пакетов
 
 ```
-yarn add js-beautify --dev
-yarn add stylelint stylelint-config-recommended stylelint-config-styled-components stylelint-processor-styled-components --dev
-```
-
-## Создаем в корне файл jsconfig.json и помещаем в него следующее содержимое
-
-```
-{
-    "compilerOptions": {
-        "baseUrl": "src",
-        "jsx": "react"
-    },
-    "include": [
-        "src"
-    ],
-    "exclude": [
-      "node_modules"
-    ]
-}
+yarn husky js-beautify lint-staged --dev
 ```
 
 ## Для TS в будущем
